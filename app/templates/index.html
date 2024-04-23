@@ -1,0 +1,203 @@
+<!-- using similar set up from flask blog to get started just on home page -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Fore Finder API</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        />
+    </head>
+    <body>
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1">Fore Finder API</span>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="text-center">API Documentation</h1>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!-- Get Token -->
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <span class="badge text-bg-success">GET</span> /token
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Authentication: <code>Basic Authentication</code></li>
+                            <li class="list-group-item">Example Payload: <code>N/A</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Create Golfer -->
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <span class="badge text-bg-warning">POST</span> /golfers
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Authentication: <code>None</code></li>
+                            <li class="list-group-item">Example Payload: <code>{ "firstName": "Tiger", "lastName": "Woods", "username": "TW", "email": "tw@golf.com", "password": "bigcat", "golfer_age": "48", "city": "Jupiter", "district": "Florida", "Country": "USA" }</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- get Golfer -->
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <span class="badge text-bg-success">GET</span> /golfers/me
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Authentication: <code>Token Required</code></li>
+                            <li class="list-group-item">Example Payload: <code>None</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- update Golfer -->
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <span class="badge text-bg-info">PUT</span> /golfers/me
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Authentication: <code>Token Required</code></li>
+                            <li class="list-group-item">Example Payload: <code>{"handicap": "5"}  <-- updated handicap</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- delete Golfer -->
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <span class="badge text-bg-danger">DELETE</span> /golfers/me
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Authentication: <code>Token Required</code></li>
+                            <li class="list-group-item">Example Payload: <code>None</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- login -->
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <span class="badge text-bg-success">GET</span> /login
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Authentication: <code>Verify Password</code></li>
+                            <li class="list-group-item">Example Payload: <code>Password</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Get teetimes -->
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <span class="badge text-bg-success">GET</span> /teetimes
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Authentication: <code>None</code></li>
+                            <li class="list-group-item">Example Payload: <code>N/A</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Get teetime -->
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <span class="badge text-bg-success">GET</span> /teetimes/&lt;teetime_id&gt;
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Authentication: <code>None</code></li>
+                            <li class="list-group-item">Example Payload: <code>N/A</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Create teetime -->
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <span class="badge text-bg-warning">POST</span> /teetimes
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Authentication: <code>Token Authentication</code></li>
+                            <li class="list-group-item">Example Payload: <code>{ "course_name": "Augusta National", "price": "450", "teetime_date": "5/6/2024", "teetime_time": "1:00 PM EST", "space_remaining": "1"}</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Edit teetime -->
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <span class="badge text-bg-info">PUT</span> /teetimes/&lt;teetime_id&gt;
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Authentication: <code>Token Authentication</code></li>
+                            <li class="list-group-item">Example Payload: <code>{ "teetime_time": "12:00 PM EST" }</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Delete teetime -->
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <span class="badge text-bg-danger">DELETE</span> /teetimes/&lt;teetime_id&gt;
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Authentication: <code>Token Authentication</code></li>
+                            <li class="list-group-item">Example Payload: <code>N/A</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Create Comment -->
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <span class="badge text-bg-warning">POST</span> /teetimes/&lt;teetime_id&gt;/golfer_comments
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Authentication: <code>Token Authentication</code></li>
+                            <li class="list-group-item">Example Payload: <code>{ "body": "I want to play!" }</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Delete Comment -->
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <span class="badge text-bg-danger">DELETE</span> /teetimes/&lt;teetime_id&gt;/golfer_comments/&lt;golfer_comment_id&gt;
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Authentication: <code>Token Authentication</code></li>
+                            <li class="list-group-item">Example Payload: <code>N/A</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
