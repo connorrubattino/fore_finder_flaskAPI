@@ -96,7 +96,7 @@ class Course(db.Model):
     rating = db.Column(db.Float, nullable=True)
     slope = db.Column(db.Float, nullable=True)
     course_length = db.Column(db.Integer, nullable=True)
-    par = weekedn_price = db.Column(db.Integer, nullable=False)
+    par = db.Column(db.Integer, nullable=False)
     designer = db.Column(db.String, nullable=True)
     teetimes = db.relationship("Teetimes", back_populates="course")
 

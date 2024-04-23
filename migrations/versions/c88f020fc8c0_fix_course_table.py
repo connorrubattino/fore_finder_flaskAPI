@@ -1,8 +1,8 @@
-"""create golfer, course, teetime, golfer_comment tables
+"""fix course table
 
-Revision ID: 7daf5fef07d3
+Revision ID: c88f020fc8c0
 Revises: 
-Create Date: 2024-04-23 13:36:05.413265
+Create Date: 2024-04-23 16:09:53.865026
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '7daf5fef07d3'
+revision = 'c88f020fc8c0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -27,13 +27,13 @@ def upgrade():
         batch_op.add_column(sa.Column('password', sa.String(), nullable=False))
         batch_op.add_column(sa.Column('alcohol', sa.Boolean(), nullable=True))
         batch_op.drop_column('golfer_id')
-        batch_op.drop_column('alcholol')
         batch_op.drop_column('pw_hash')
+        batch_op.drop_column('alcholol')
 
     with op.batch_alter_table('golfer_comment', schema=None) as batch_op:
         batch_op.add_column(sa.Column('id', sa.Integer(), nullable=False))
-        batch_op.drop_constraint('golfer_comment_teetime_id_fkey', type_='foreignkey')
         batch_op.drop_constraint('golfer_comment_golfer_id_fkey', type_='foreignkey')
+        batch_op.drop_constraint('golfer_comment_teetime_id_fkey', type_='foreignkey')
         batch_op.create_foreign_key(None, 'golfer', ['golfer_id'], ['id'])
         batch_op.create_foreign_key(None, 'teetime', ['teetime_id'], ['id'])
         batch_op.drop_column('comment_id')
@@ -42,8 +42,8 @@ def upgrade():
         batch_op.add_column(sa.Column('id', sa.Integer(), nullable=False))
         batch_op.drop_constraint('teetime_golfer_id_fkey', type_='foreignkey')
         batch_op.drop_constraint('teetime_course_id_fkey', type_='foreignkey')
-        batch_op.create_foreign_key(None, 'golfer', ['golfer_id'], ['id'])
         batch_op.create_foreign_key(None, 'course', ['course_id'], ['id'])
+        batch_op.create_foreign_key(None, 'golfer', ['golfer_id'], ['id'])
         batch_op.drop_column('teetime_id')
 
     # ### end Alembic commands ###
@@ -63,13 +63,13 @@ def downgrade():
         batch_op.add_column(sa.Column('comment_id', sa.INTEGER(), autoincrement=True, nullable=False))
         batch_op.drop_constraint(None, type_='foreignkey')
         batch_op.drop_constraint(None, type_='foreignkey')
-        batch_op.create_foreign_key('golfer_comment_golfer_id_fkey', 'golfer', ['golfer_id'], ['golfer_id'])
         batch_op.create_foreign_key('golfer_comment_teetime_id_fkey', 'teetime', ['teetime_id'], ['teetime_id'])
+        batch_op.create_foreign_key('golfer_comment_golfer_id_fkey', 'golfer', ['golfer_id'], ['golfer_id'])
         batch_op.drop_column('id')
 
     with op.batch_alter_table('golfer', schema=None) as batch_op:
-        batch_op.add_column(sa.Column('pw_hash', sa.VARCHAR(), autoincrement=False, nullable=False))
         batch_op.add_column(sa.Column('alcholol', sa.BOOLEAN(), autoincrement=False, nullable=True))
+        batch_op.add_column(sa.Column('pw_hash', sa.VARCHAR(), autoincrement=False, nullable=False))
         batch_op.add_column(sa.Column('golfer_id', sa.INTEGER(), server_default=sa.text("nextval('golfer_golfer_id_seq'::regclass)"), autoincrement=True, nullable=False))
         batch_op.drop_column('alcohol')
         batch_op.drop_column('password')
