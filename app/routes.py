@@ -248,4 +248,4 @@ def delete_comment(teetime_id, golfer_comment_id):
         return {'error': 'You do not have permission to delete this comment'}, 403
     
     golfer_comment.delete()
-    return {'success': "Comment has been successfully deleted"}, 200
+    return {'success': "Comment has been successfully deleted"}, 200 
