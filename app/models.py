@@ -51,7 +51,8 @@ class Golfer(db.Model):
     #turn the User into a dict type
     def to_dict(self):
         return {
-            "id": self.golfer_id,
+            "golfer_id": self.golfer_id,
+            # changed above to golfer ID ================================================================================================================================
             "first_name": self.first_name,
             "last_name": self.last_name,
             "username": self.username,
@@ -115,7 +116,8 @@ class Course(db.Model):
 
     def to_dict(self):
         return {
-            "id": self.course_id,
+            "course_id": self.course_id,
+            # changed to course_id ================================================================================================================================
             "course_name": self.course_name,
             "address": self.address,
             "city": self.city,
@@ -152,7 +154,8 @@ class Teetime(db.Model):
     teetime_time = db.Column(db.String, nullable=False)
     space_remaining = db.Column(db.Integer, nullable=False)
     golfer_id = db.Column(db.Integer, db.ForeignKey('golfer.golfer_id'), nullable=False)
-    course_id = db.Column(db.Integer, db.ForeignKey('course.course_id'), nullable=False)
+    # made nullable true below ================================================================================================================================
+    course_id = db.Column(db.Integer, db.ForeignKey('course.course_id'), nullable=True)
     golfer = db.relationship("Golfer", back_populates='teetimes')
     golfer_comments = db.relationship("Golfer_comment", back_populates='teetime')
     course = db.relationship("Course", back_populates="teetimes")
@@ -176,6 +179,8 @@ class Teetime(db.Model):
             "teetime_date": self.teetime_date,
             "teetime_time": self.teetime_time,
             "space_remaining": self.space_remaining,
+            "course_id":self.course_id,
+            # added course ID above ================================================================================================================================
             "golfer": self.golfer.to_dict(),
             "golfer_comments": [golfer_comment.to_dict() for golfer_comment in self.golfer_comments]
         }
