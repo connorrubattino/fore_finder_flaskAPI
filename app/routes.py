@@ -82,7 +82,7 @@ def delete_me():
 
 # golfer login
 @app.route('/login', methods=['GET'])
-@basic_auth.verify_password
+@basic_auth.login_required
 def login():
     golfer = basic_auth.current_user()
     return golfer.get_token()

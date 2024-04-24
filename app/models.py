@@ -25,6 +25,8 @@ class Golfer(db.Model):
     country = db.Column(db.String, nullable=False)
     phone = db.Column(db.String, nullable=True)
     music = db.Column(db.Boolean, nullable=True)
+    token = db.Column(db.String, nullable=True)
+    tokenExp = db.Column(db.DateTime(timezone=True), nullable=True)
     teetimes = db.relationship('Teetime', back_populates="golfer")
     golfer_comments = db.relationship("Golfer_comment", back_populates="golfer")
 
@@ -71,12 +73,12 @@ class Golfer(db.Model):
     
     def get_token(self):
         now = datetime.now(timezone.utc)
-        if self.token and self.token_expiration > now + timedelta(minutes=1):
-            return {"token": self.token, "tokenExpiration": self.token_expiration}
+        if self.token and self.tokenExp > now + timedelta(minutes=1):
+            return {"token": self.token, "tokenExp": self.tokenExp}
         self.token = secrets.token_hex(16)
-        self.token_expiration = now + timedelta(hours=1)
+        self.tokenExp = now + timedelta(hours=1)
         self.save()
-        return {"token": self.token, "tokenExpiration": self.token_expiration}
+        return {"token": self.token, "tokenExp": self.tokenExp}
     
     def delete(self):
         db.session.delete(self)
