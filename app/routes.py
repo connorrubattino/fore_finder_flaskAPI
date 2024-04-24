@@ -43,7 +43,7 @@ def create_golfer():
         return {'error': "A golfer with that username and/or email already exists"}, 400
     
     #create a new instance of user with the data rom the request
-    new_golfer = Golfer(first_name=first_name, last_name=last_name,  username=username, email=email, password=password)
+    new_golfer = Golfer(first_name=first_name, last_name=last_name,  username=username, email=email, password=password, golfer_age=golfer_age, city=city, district=district, country=country)
 
     return new_golfer.to_dict(), 201
 

@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class Golfer(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    golfer_id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
@@ -33,7 +33,7 @@ class Golfer(db.Model):
         self.set_password(kwargs.get('password', '')) #find the password in args
 
     def __repr__(self):
-        return f"<Golfer {self.id}|{self.username}>"
+        return f"<Golfer {self.golfer_id}|{self.username}>"
     
     def set_password(self, plaintext_password):
         self.password = generate_password_hash(plaintext_password)
@@ -49,7 +49,7 @@ class Golfer(db.Model):
     #turn the User into a dict type
     def to_dict(self):
         return {
-            "id": self.id,
+            "id": self.golfer_id,
             "first_name": self.first_name,
             "last_name": self.last_name,
             "username": self.username,
@@ -84,7 +84,7 @@ class Golfer(db.Model):
     
 
 class Course(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    course_id = db.Column(db.Integer, primary_key=True)
     course_name = db.Column(db.String, nullable=False)
     address = db.Column(db.String, nullable=False)
     city = db.Column(db.String, nullable=False)
@@ -98,14 +98,14 @@ class Course(db.Model):
     course_length = db.Column(db.Integer, nullable=True)
     par = db.Column(db.Integer, nullable=False)
     designer = db.Column(db.String, nullable=True)
-    teetimes = db.relationship("Teetimes", back_populates="course")
+    teetimes = db.relationship("Teetime", back_populates="course")
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.save()
 
     def __repr__(self):
-        return f"<Course {self.id}|{self.course_name}>"
+        return f"<Course {self.course_id}|{self.course_name}>"
     
     def save(self):
         db.session.add(self)
@@ -113,7 +113,7 @@ class Course(db.Model):
 
     def to_dict(self):
         return {
-            "id": self.id,
+            "id": self.course_id,
             "course_name": self.course_name,
             "address": self.address,
             "city": self.city,
@@ -143,14 +143,14 @@ class Course(db.Model):
 
 
 class Teetime(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    teetime_id = db.Column(db.Integer, primary_key=True)
     course_name = db.Column(db.String, nullable=False)
     price = db.Column(db.Integer, nullable=False)
     teetime_date = db.Column(db.String, nullable=False)
     teetime_time = db.Column(db.String, nullable=False)
     space_remaining = db.Column(db.Integer, nullable=False)
-    golfer_id = db.Column(db.Integer, db.ForeignKey('golfer.id'), nullable=False)
-    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
+    golfer_id = db.Column(db.Integer, db.ForeignKey('golfer.golfer_id'), nullable=False)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.course_id'), nullable=False)
     golfer = db.relationship("Golfer", back_populates='teetimes')
     golfer_comments = db.relationship("Golfer_comment", back_populates='teetime')
     course = db.relationship("Course", back_populates="teetimes")
@@ -160,7 +160,7 @@ class Teetime(db.Model):
         self.save()
 
     def __repr__(self):
-        return f"<Teetime {self.id}|{self.course_name}|{self.price}|{self.teetime_date}|{self.teetime_time}>"
+        return f"<Teetime {self.teetime_id}|{self.course_name}|{self.price}|{self.teetime_date}|{self.teetime_time}>"
     
     def save(self):
         db.session.add(self)
@@ -168,7 +168,7 @@ class Teetime(db.Model):
 
     def to_dict(self):
         return {
-            "id": self.id,
+            "id": self.teetime_id,
             "course_details": self.course.to_dict(),
             "price": self.price,
             "teetime_date": self.teetime_date,
@@ -196,10 +196,10 @@ class Teetime(db.Model):
 
 
 class Golfer_comment(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    golfer_comment_id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String, nullable=False)
-    golfer_id = db.Column(db.Integer, db.ForeignKey('golfer.id'), nullable=False)
-    teetime_id = db.Column(db.Integer, db.ForeignKey('teetime.id'), nullable=False)
+    golfer_id = db.Column(db.Integer, db.ForeignKey('golfer.golfer_id'), nullable=False)
+    teetime_id = db.Column(db.Integer, db.ForeignKey('teetime.teetime_id'), nullable=False)
     teetime = db.relationship('Teetime', back_populates="golfer_comments")
     golfer = db.relationship('Golfer', back_populates='golfer_comments')
 
@@ -208,7 +208,7 @@ class Golfer_comment(db.Model):
         self.save()
 
     def __repr__(self):
-        return f"<Comment {self.id}>"
+        return f"<Comment {self.golfer_comment_id}>"
 
     def save(self):
         db.session.add(self)
@@ -220,7 +220,7 @@ class Golfer_comment(db.Model):
 
     def to_dict(self):
         return {
-            'id': self.id,
+            'id': self.golfer_comment_id,
             'body': self.body,
             'teetime_id': self.teetime_id,
             'golfer': self.golfer.to_dict()
