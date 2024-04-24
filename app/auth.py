@@ -20,7 +20,7 @@ def handle_error(status_code):
 @token_auth.verify_token
 def verify(token):
     golfer = db.session.execute(db.select(Golfer).where(Golfer.token==token)).scalar_one_or_none()
-    if golfer is not None and golfer.token_expiration > datetime.now(timezone.utc):
+    if golfer is not None and golfer.tokenExp > datetime.now(timezone.utc):
         return golfer
     return None
 
