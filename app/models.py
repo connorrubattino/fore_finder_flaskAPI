@@ -180,7 +180,7 @@ class Teetime(db.Model):
             "teetime_date": self.teetime_date,
             "teetime_time": self.teetime_time,
             "space_remaining": self.space_remaining,
-            "course_id":self.course_id,
+            # "course_id":self.course_id,
             # added course ID above ================================================================================================================================
             "golfer": self.golfer.to_dict(),
             "golfer_comments": [golfer_comment.to_dict() for golfer_comment in self.golfer_comments]
