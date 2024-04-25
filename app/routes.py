@@ -148,8 +148,8 @@ def create_teetime():
     current_golfer = token_auth.current_user()
 
     # Create a new Teetime instance with data (and get the id from the token authenticated user)
-    new_teetime = Teetime(course_name=course_name, price=price, teetime_date=teetime_date, teetime_time=teetime_time, space_remaining=space_remaining, golfer_id=current_golfer.golfer_id)
-    # last part of above line from .id to .golfer_id ================================================================================================================================
+    new_teetime = Teetime(course_name=course_name, price=price, teetime_date=teetime_date, teetime_time=teetime_time, space_remaining=space_remaining, golfer_id=current_golfer.golfer_id, course_id=course_id)
+    # last part of above line from .id to .golfer_id  and added course_id================================================================================================================================
 
     # Return the newly created teetime dictionary with a 201 Created Status Code
     return new_teetime.to_dict(), 201
