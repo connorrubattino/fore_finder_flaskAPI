@@ -249,3 +249,47 @@ def delete_comment(teetime_id, golfer_comment_id):
     
     golfer_comment.delete()
     return {'success': "Comment has been successfully deleted"}, 200 
+
+
+
+
+
+
+
+
+    # messing around with adding a course in
+    # create new course
+@app.route('/courses', methods=['POST'])
+def create_course():
+    if not request.is_json:
+        return {'error': 'You content-type must be application/json'}, 400
+    # Get the data from the request body
+    data = request.json
+
+    # Validate that the data has all of the required fields
+    required_fields = ['course_name', 'address', 'city', 'district', 'country', 'par']
+    missing_fields = []
+    for field in required_fields:
+        if field not in data:
+            missing_fields.append(field)
+    if missing_fields:
+        return {'error': f"{', '.join(missing_fields)} must be in the request body"}, 400
+    #pull the individual data from the body
+    course_name = data.get('course_name')
+    address = data.get('address')
+    city = data.get('city')
+    district = data.get('district')
+    country = data.get('country')
+    par = data.get('par')
+
+    #check to see if any current users already have the username and/or email
+    check_courses = db.session.execute(db.select(Course).where( (Course.course_name == course_name) | (Course.address == address) )).scalars().all()
+    if check_courses:
+        return {'error': "A course with that name and/or address already exists"}, 400
+    
+    #create a new instance of user with the data rom the request
+    new_course = Course(course_name=course_name, address=address,  city=city, district=district, country=country, par=par)
+
+    return new_course.to_dict(), 201
+
+
