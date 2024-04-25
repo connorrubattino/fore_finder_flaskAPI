@@ -64,7 +64,7 @@ class Golfer(db.Model):
             "district": self.district,
             "country": self.country,
             "right_handed": self.right_handed,
-            "alchohol": self.alchohol,
+            "alcohol": self.alcohol,
             "legal_drugs": self.legal_drugs,
             "smoker": self.smoker,
             "gambler": self.gambler,
@@ -72,7 +72,7 @@ class Golfer(db.Model):
         }
     
     def update(self, **kwargs):
-        allowed_fields = {'first_name', 'last_name', 'city', 'district', 'country', 'email', 'phone', 'handicap', 'golfer_age', 'right_handed', 'alcholol', 'legal_drugs', 'smoker', 'gambler', 'tees', 'music'}
+        allowed_fields = {'first_name', 'last_name', 'city', 'district', 'country', 'email', 'phone', 'handicap', 'golfer_age', 'right_handed', 'alcohol', 'legal_drugs', 'smoker', 'gambler', 'tees', 'music'}
         for key, value in kwargs.items():
             if key in allowed_fields:
                 setattr(self, key, value)
