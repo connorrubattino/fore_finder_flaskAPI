@@ -103,7 +103,7 @@ def get_teetimes():
 
 @app.route('/teetimes/me')
 @token_auth.login_required
-def get_teetimes():
+def get_myteetimes():
     current_golfer = token_auth.current_user()
     select_stmt = db.select(Teetime).where(Teetime.golfer.golfer_id == current_golfer.golfer_id)
     # Get the teetimes from the database
