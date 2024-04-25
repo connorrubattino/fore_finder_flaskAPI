@@ -121,7 +121,9 @@ def create_teetime():
     #get the data from the request body
     data = request.json
     #validate the incoming data
-    required_fields = ['course_name', 'price', 'teetime_date', 'teetime_time', 'space_remaining']
+    required_fields = ['course_name', 'price', 'teetime_date', 'teetime_time', 'space_remaining', 'course_id']
+    # added course_id above ================================================================================================================================
+
     missing_fields = []
     # For each of the required fields
     for field in required_fields:
@@ -139,6 +141,9 @@ def create_teetime():
     teetime_date = data.get('teetime_date')
     teetime_time = data.get('teetime_time')
     space_remaining = data.get('space_remaining')
+    course_id = data.get('course_id')
+    # added course_id above ================================================================================================================================
+
 
     current_golfer = token_auth.current_user()
 
