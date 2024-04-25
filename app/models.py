@@ -69,6 +69,7 @@ class Golfer(db.Model):
             "smoker": self.smoker,
             "gambler": self.gambler,
             "music": self.music,
+            "tees": self.tees
         }
     
     def update(self, **kwargs):
