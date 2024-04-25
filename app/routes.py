@@ -225,7 +225,8 @@ def create_golfer_comment(teetime_id):
     
     body = data.get('body')
     current_golfer = token_auth.current_user()
-    new_golfer_comment = Golfer_comment(body=body, golfer_id=current_golfer.id, teetime_id=teetime.id)
+    new_golfer_comment = Golfer_comment(body=body, golfer_id=current_golfer.golfer_id, teetime_id=teetime.teetime_id)
+    # ABOVE CHANGING FROM id to golfer_id as well as teetime_id
     return new_golfer_comment.to_dict(), 201
 
 # Delete a golfer_comment
@@ -244,7 +245,8 @@ def delete_comment(teetime_id, golfer_comment_id):
     if golfer_comment is None:
         return {'error': f"Comment {golfer_comment_id} does not exist"}, 404
     
-    if golfer_comment.teetime_id != teetime.id:
+    if golfer_comment.teetime_id != teetime.teetime_id:
+        # above changing to teetime_id
         return {'error' : f"Comment #{golfer_comment_id} is not associated with teetime #{teetime_id}"}, 403
     
     current_golfer = token_auth.current_user()
