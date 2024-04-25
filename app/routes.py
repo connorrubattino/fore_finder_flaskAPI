@@ -280,7 +280,14 @@ def create_course():
     city = data.get('city')
     district = data.get('district')
     country = data.get('country')
+    weekday_price = data.get('weekday_price')
+    weekend_price = data.get('weekend_price')
+    strict_dress = data.get('strict_dress')
+    rating = data.get('rating')
+    sope = data.get('sope')
+    course_length = data.get('course_length')
     par = data.get('par')
+    designer = data.get('designer')
 
     #check to see if any current users already have the username and/or email
     check_courses = db.session.execute(db.select(Course).where( (Course.course_name == course_name) | (Course.address == address) )).scalars().all()
