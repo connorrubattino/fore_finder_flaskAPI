@@ -307,3 +307,9 @@ def create_course():
     return new_course.to_dict(), 201
 
 
+@app.route('/courses')
+def get_courses():
+    select_stmt = db.select(Course)
+    # Get the teetimes from the database
+    courses = db.session.execute(select_stmt).scalars().all()
+    return [c.to_dict() for c in courses]
