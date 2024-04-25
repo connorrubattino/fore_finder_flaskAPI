@@ -105,7 +105,7 @@ def get_teetimes():
 @token_auth.login_required
 def get_myteetimes():
     current_golfer = token_auth.current_user()
-    select_stmt = db.select(Teetime).where(Teetime.golfer.golfer_id == current_golfer.golfer_id)
+    select_stmt = db.select(Teetime).where(Teetime.golfer_id == current_golfer.golfer_id)
     # Get the teetimes from the database
     teetimes = db.session.execute(select_stmt).scalars().all()
     return [t.to_dict() for t in teetimes]
