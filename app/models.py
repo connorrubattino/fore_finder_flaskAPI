@@ -175,6 +175,7 @@ class Teetime(db.Model):
         return {
             "teetime_id": self.teetime_id,
             # changed to teetime_ID above ================================================================================================================================
+            'course_name': self.course_name,
             "course_details": self.course.to_dict(),
             "price": self.price,
             "teetime_date": self.teetime_date,
