@@ -208,6 +208,12 @@ def delete_teetime(teetime_id):
 
 
 
+@app.route('/teetimes<int:teetime_id>/golfer_comments')
+def get_teetimes():
+    select_stmt = db.select(Golfer_comment)
+    comments = db.session.execute(select_stmt).scalars().all()
+    return [c.to_dict() for c in comments]
+
 
 
 # Create a golfer_comment
